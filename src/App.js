@@ -1,35 +1,35 @@
 import React from "react"
-import { CenteredRow } from "./styles/styled-components"
-
+import {
+  CenteredRow,
+  ResponsiveRow,
+  CenteredCol
+} from "./styles/styled-components"
 import { Row, Col, Container } from "react-bootstrap"
-import star from "./images/star.png"
+
 import Slider from "./components/Sliders"
 import Velocity from "./components/Velocity"
-import ImageFilter from "react-image-filter"
+import BeautifulStar from "./components/BeautifulStars"
+
+/**
+ * @App Combines Stars Sliders and Velocity Component
+ */
 
 function App() {
-  const filter = [1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0]
-
   return (
     <Container>
       <Col>
         <CenteredRow>Doppler Effect</CenteredRow>
-        <Row style={{ justifyContent: "center" }}>
-          <ImageFilter
-            image={star}
-            filter={filter} // see docs beneath
-            style={{ height: 300, width: 300 }}
-          />
-        </Row>
-
-        <Row>
-          <Col>
+        <CenteredRow>
+          <BeautifulStar />
+        </CenteredRow>
+        <ResponsiveRow>
+          <CenteredCol>
             <Velocity />
-          </Col>
-          <Col>
+          </CenteredCol>
+          <CenteredCol>
             <Slider />
-          </Col>
-        </Row>
+          </CenteredCol>
+        </ResponsiveRow>
       </Col>
     </Container>
   )

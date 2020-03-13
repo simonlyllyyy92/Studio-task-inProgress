@@ -1,7 +1,10 @@
-const CHANGE_SLIDER_VALUE = "CHANGE_SLIDER_VALUE"
+/**
+ * @ActionTypes
+ * @Returns String
+ */
+
 const CHANGE_VEL_VALUE = "CHANGE_VEL_VALUE"
 
 export const ActionTypes = {
-  CHANGE_SLIDER_VALUE,
   CHANGE_VEL_VALUE
 }

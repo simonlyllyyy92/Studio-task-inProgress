@@ -1,9 +1,13 @@
 import { ActionTypes } from "./actionTypes"
 
+/**
+ * @VelocityReducer
+ * worked as rootReducer
+ * because combineReducer is not needed
+ */
+
+//initial State
 const initialState = {
-  sliderValue: {
-    value: 50
-  },
   inputValue: {
     value: 0
   }
@@ -11,13 +15,7 @@ const initialState = {
 
 export default (state = initialState, action) => {
   switch (action.type) {
-    case ActionTypes.CHANGE_SLIDER_VALUE:
-      return {
-        ...state,
-        sliderValue: {
-          value: action.payload
-        }
-      }
+    //Changing the Input value action
     case ActionTypes.CHANGE_VEL_VALUE:
       return {
         ...state,
