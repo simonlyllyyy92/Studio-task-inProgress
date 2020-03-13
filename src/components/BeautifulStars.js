@@ -23,7 +23,11 @@ const BeautifulStar = () => {
     styling = `invert(${Math.abs(imageValue) / 100})`
   }
 
-  return <StyledStar src={star} styling={styling} />
+  return (
+  <div>
+    <StyledStar src={star} styling={styling} />
+  </div>
+  )
 }
 
 export default BeautifulStar

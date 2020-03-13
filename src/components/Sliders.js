@@ -59,11 +59,20 @@ const Sliders = () => {
   const handleChange = (event, newValue) => {
     let sliderLogValue
     if (newValue > 70) {
-      sliderLogValue = logUpslider(newValue)
-      dispatch(changingVelValue(sliderLogValue))
+      if(newValue === 100){
+        dispatch(changingVelValue(newValue))
+      }else{
+        sliderLogValue = logUpslider(newValue)
+        dispatch(changingVelValue(sliderLogValue))
+      }
     } else if (newValue < 70) {
-      sliderLogValue = logsDownSlider(newValue)
-      dispatch(changingVelValue(-Math.abs(sliderLogValue)))
+      if(newValue === 0){
+        dispatch(changingVelValue(-100))
+      }else{
+        sliderLogValue = logsDownSlider(newValue)
+        dispatch(changingVelValue(-Math.abs(sliderLogValue)))
+      }
+     
     } else if (newValue === 70) {
       dispatch(changingVelValue(0))
     }
