@@ -11,24 +11,63 @@ import { changingVelValue } from "../store/action"
  */
 
 const Sliders = () => {
-  // Getting the Velocity input value from the reducer
-  const VelValue = useSelector(state => state.inputValue.value)
   // Material - ui Slider can not used the info from the redux as its initial value
   // So here we create a state inside the component
-  const [sliderValue, setSliderValue] = useState(50)
+  const [sliderValue, setSliderValue] = useState(70)
 
   const dispatch = useDispatch()
 
-  // every time the Velocity value is changed the slider value will changed as well
-  useEffect(() => {
-    setSliderValue(VelValue / 2 + 50)
-  }, [VelValue])
+  /**
+   *
+   * @LogarithmicSlider rang from {0-100}
+   * @Range Slider value from {70 - 100} reflect to {1-100} actual value
+   * {0-70} reflect to {-100 - 1} value
+   */
+
+  //Star turns to red log ！
+  const logUpslider = position => {
+    // position will be between 70 and 100
+    const minp = 70
+    const maxp = 100
+
+    // The result should be between 1 an 100
+    const minv = Math.log(1)
+    const maxv = Math.log(100)
+
+    // calculate adjustment factor
+    const scale = (maxv - minv) / (maxp - minp)
+
+    return Math.exp(minv + scale * (position - minp))
+  }
+  //Star turns to blue log !
+  const logsDownSlider = position => {
+    const minp = 0
+    const maxp = 70
+
+    // The result should be between 100 an 1
+    const minv = Math.log(100)
+    const maxv = Math.log(1)
+
+    // calculate adjustment factor
+    const scale = (maxv - minv) / (maxp - minp)
+
+    return Math.exp(minv + scale * (position - minp))
+  }
 
   // every time we move the slider, it will set the slider value
   // as well as changing the Velocity value and store the new Velocity value into redux store
   const handleChange = (event, newValue) => {
+    let sliderLogValue
+    if (newValue > 70) {
+      sliderLogValue = logUpslider(newValue)
+      dispatch(changingVelValue(sliderLogValue))
+    } else if (newValue < 70) {
+      sliderLogValue = logsDownSlider(newValue)
+      dispatch(changingVelValue(-Math.abs(sliderLogValue)))
+    } else if (newValue === 70) {
+      dispatch(changingVelValue(0))
+    }
     setSliderValue(newValue)
-    dispatch(changingVelValue((newValue - 50) * 2))
   }
 
   //Slider Component layout
